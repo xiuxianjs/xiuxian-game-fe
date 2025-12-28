@@ -43,7 +43,6 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        dir: '../dist',
         entryFileNames: 'js/[name]-[hash].js',
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: ({ name }) => {
@@ -51,14 +50,7 @@ export default defineConfig({
           return 'assets/[name]-[hash][extname]';
         },
         manualChunks: {
-          'react-vendor': [
-            'react',
-            'react-dom',
-            'react-router-dom',
-            'react-router',
-            'react-redux',
-            'redux'
-          ]
+          'react-vendor': ['react', 'react-dom', 'react-router-dom', 'react-router', 'react-redux', 'redux']
         }
       }
     }
