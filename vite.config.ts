@@ -1,7 +1,16 @@
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
+
 const NODE_ENV = process.env.NODE_ENV === 'development';
+
+const targetMap: {
+  [key: string]: string;
+} = {
+  prod: 'https://xiuxian.alemonjs.com/api',
+  '': 'http://localhost:18118/app/api/'
+};
+
 export default defineConfig({
   base: NODE_ENV ? '/' : './',
   plugins: [react()],
@@ -19,8 +28,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:18118/app/api/',
+        target: targetMap[process.env.NODE_BASE_ENV ?? ''],
         changeOrigin: true,
+        ws: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
     }
